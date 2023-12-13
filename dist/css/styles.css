@@ -8,6 +8,7 @@
   --smaller-font-size: 1.5rem;
   --font-light: 300;
   --font-medium: 500; 
+  --font-bold: 700;
 
   /* color */
   --dark-color: #0c0a09;
@@ -58,6 +59,7 @@ a {
 
   font-size: var(--big-font-size);
   color: var(--main-white-color);
+  font-weight: var(--font-bold);
 }
 
 /* sidebar */
