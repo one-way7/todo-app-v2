@@ -1,3 +1,5 @@
+import dom from './dom';
+
 const projects = (() => {
   const projectsList = [
     {
@@ -18,11 +20,18 @@ const projects = (() => {
     const newProject = new Project(title);
 
     projectsList.push(newProject);
+    dom.renderProjects();
+  };
+
+  const editProject = (title, index) => {
+    projectsList[index].title = title;
+    dom.renderProjects();
   };
 
   return {
     projectsList,
     createProject,
+    editProject,
   };
 })();
 
