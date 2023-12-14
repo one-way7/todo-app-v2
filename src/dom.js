@@ -1,6 +1,7 @@
 import projects from './projects';
 
 const dom = (() => {
+  const body = document.querySelector('body');
   const projectsList = document.querySelector('.project__container');
   let projectModal;
   let projectFormEl;
@@ -12,13 +13,13 @@ const dom = (() => {
   };
 
   const renderFormProjects = (modal, index) => {
-    let addBtn = 'add';
+    let addBtn = 'Add';
     let addBtnClass = 'project__form-add-btn';
     let isHide = true;
     let inputValue = '';
 
     if (modal === 'edit') {
-      addBtn = 'edit';
+      addBtn = 'Edit';
       addBtnClass = 'project__form-edit-btn';
       isHide = false;
       inputValue = projects[index].title;
@@ -134,6 +135,8 @@ const dom = (() => {
   };
 
   return {
+    body,
+    showProjectModal,
     renderProjects,
   };
 })();
