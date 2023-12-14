@@ -18,7 +18,6 @@ const projects = (() => {
 
   const createProject = (title) => {
     const newProject = new Project(title);
-
     projectsList.push(newProject);
     dom.renderProjects();
   };
@@ -28,10 +27,16 @@ const projects = (() => {
     dom.renderProjects();
   };
 
+  const removeProject = (index) => {
+    projectsList.splice(index, 1);
+    dom.renderProjects();
+  };
+
   return {
     projectsList,
     createProject,
     editProject,
+    removeProject,
   };
 })();
 
