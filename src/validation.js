@@ -19,8 +19,20 @@ const validation = (() => {
     }
   };
 
+  const editProject = (e, projectIndex) => {
+    const projectTitle = document.forms['project__edit-form'].querySelector(
+      'input[name="title"]',
+    ).value;
+
+    e.preventDefault();
+
+    projects.projectsList[projectIndex].title = projectTitle;
+    dom.renderProjects();
+  };
+
   return {
     addProject,
+    editProject,
   };
 })();
 
