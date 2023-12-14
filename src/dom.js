@@ -5,6 +5,7 @@ const dom = (() => {
   const projectsList = document.querySelector('.project__container');
   let projectModal;
   let projectFormEl;
+  let formProjectTitleError;
 
   const showProjectModal = () => {
     projectFormEl.reset();
@@ -66,6 +67,7 @@ const dom = (() => {
     errorField.classList.add('error', 'hide');
     errorField.textContent = "This field can't be empty.";
     formContent.appendChild(errorField);
+    formProjectTitleError = errorField;
 
     const formBtnsWrapper = document.createElement('div');
     formBtnsWrapper.classList.add('project__form-btns');
