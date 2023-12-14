@@ -3,12 +3,20 @@ import projects from './projects';
 const dom = (() => {
   const projectsList = document.querySelector('.project__container');
   let projectModal;
+  let projectFormEl;
 
-  const renderFormProjects = (modal = 'add') => {
-    const addBtn = modal === 'add' ? 'add' : 'Edit';
-    const addBtnClass =
-      modal === 'add' ? 'project__form-add-btn' : 'project__form-edit-btn';
-    const isHide = modal === 'add';
+  const renderFormProjects = (modal, index) => {
+    let addBtn = 'add';
+    let addBtnClass = 'project__form-add-btn';
+    let isHide = true;
+    let inputValue = '';
+
+    if (modal === 'edit') {
+      addBtn = 'edit';
+      addBtnClass = 'project__form-edit-btn';
+      isHide = false;
+      inputValue = projects[index].title;
+    }
 
     const projectFormDiv = document.createElement('div');
     projectFormDiv.classList.add('project__modal');
@@ -20,6 +28,7 @@ const dom = (() => {
     projectForm.classList.add('project__form');
     projectForm.setAttribute('name', 'project__form');
     projectFormDiv.appendChild(projectForm);
+    projectFormEl = projectForm;
 
     const formContent = document.createElement('div');
     formContent.classList.add('project__form-content');
@@ -38,6 +47,7 @@ const dom = (() => {
     formInput.setAttribute('type', 'text');
     formInput.setAttribute('name', 'title');
     formInput.setAttribute('placeholder', 'Enter Project Name');
+    formInput.value = inputValue;
     formContent.appendChild(formInput);
 
     const formBtnsWrapper = document.createElement('div');
@@ -109,12 +119,12 @@ const dom = (() => {
         deleteIcon.classList.add('ri-close-line');
         deleteIconWrapper.appendChild(deleteIcon);
       } else {
-        renderFormProjects('edit');
+        renderFormProjects('edit', projectIndex);
       }
     }
 
     // add new form line
-    renderFormProjects();
+    renderFormProjects('add');
   };
 
   return {
