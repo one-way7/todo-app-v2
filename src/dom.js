@@ -46,13 +46,59 @@ const dom = (() => {
       editIconWrapper.appendChild(editIcon);
 
       const deleteIconWrapper = document.createElement('div');
-      editIconWrapper.classList.add('project__delete-icon');
+      deleteIconWrapper.classList.add('project__delete-icon');
       projectIconsContainer.appendChild(deleteIconWrapper);
 
       const deleteIcon = document.createElement('i');
-      editIcon.classList.add('ri-close-line');
-      editIconWrapper.appendChild(deleteIcon);
+      deleteIcon.classList.add('ri-close-line');
+      deleteIconWrapper.appendChild(deleteIcon);
     }
+
+    // add new form line
+
+    const projectFormDiv = document.createElement('div');
+    projectFormDiv.classList.add('project__modal', 'hide');
+    projectsList.appendChild(projectFormDiv);
+
+    const projectForm = document.createElement('form');
+    projectForm.classList.add('project__form');
+    projectForm.setAttribute('name', 'project__form');
+    projectFormDiv.appendChild(projectForm);
+
+    const formContent = document.createElement('div');
+    formContent.classList.add('project__form-content');
+    projectForm.appendChild(formContent);
+
+    const formIconWrapper = document.createElement('div');
+    formIconWrapper.classList.add('project__form-icon');
+    formContent.appendChild(formIconWrapper);
+
+    const formIcon = document.createElement('i');
+    formIcon.classList.add('ri-terminal-line');
+    formIconWrapper.appendChild(formIcon);
+
+    const formInput = document.createElement('input');
+    formInput.classList.add('project__form-input');
+    formInput.setAttribute('type', 'text');
+    formInput.setAttribute('name', 'title');
+    formInput.setAttribute('placeholder', 'Enter Project Name');
+    formContent.appendChild(formInput);
+
+    const formBtnsWrapper = document.createElement('div');
+    formBtnsWrapper.classList.add('project__form-btns');
+    formContent.appendChild(formBtnsWrapper);
+
+    const formAddBtn = document.createElement('button');
+    formAddBtn.classList.add('project__form-add-btn');
+    formAddBtn.setAttribute('type', 'submit');
+    formAddBtn.textContent = 'Add';
+    formBtnsWrapper.appendChild(formAddBtn);
+
+    const formCancelBtn = document.createElement('button');
+    formCancelBtn.classList.add('project__form-cancel-btn');
+    formCancelBtn.setAttribute('type', 'button');
+    formCancelBtn.textContent = 'Cancel';
+    formBtnsWrapper.appendChild(formCancelBtn);
   };
 
   return {
