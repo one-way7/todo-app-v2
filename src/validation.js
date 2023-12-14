@@ -12,9 +12,8 @@ const validation = (() => {
     if (projectTitle !== '') {
       projects.createProject(projectTitle);
       dom.hideElement(dom.formProjectTitleError);
-      dom.renderProjects();
       dom.hideProjectModal();
-    } else {
+    } else if (projectTitle === '') {
       dom.showElement(dom.formProjectTitleError);
     }
   };
@@ -26,8 +25,12 @@ const validation = (() => {
 
     e.preventDefault();
 
-    projects.projectsList[projectIndex].title = projectTitle;
-    dom.renderProjects();
+    if (projectTitle !== '') {
+      projects.editProject(projectTitle, projectIndex);
+      dom.renderProjects();
+    } else if (projectTitle === '') {
+      dom.showElement(dom.formProjectTitleError);
+    }
   };
 
   return {
