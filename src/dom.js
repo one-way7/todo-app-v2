@@ -2,10 +2,10 @@ import projects from './projects';
 
 const dom = (() => {
   const body = document.querySelector('body');
+  const formProjectTitleError = document.querySelector('.error');
   const projectsList = document.querySelector('.project__container');
   let projectModal;
   let projectFormEl;
-  let formProjectTitleError;
 
   const showProjectModal = () => {
     projectFormEl.reset();
@@ -63,12 +63,6 @@ const dom = (() => {
     formInput.value = inputValue;
     formContent.appendChild(formInput);
 
-    const errorField = document.createElement('p');
-    errorField.classList.add('error', 'hide');
-    errorField.textContent = "This field can't be empty.";
-    formContent.appendChild(errorField);
-    formProjectTitleError = errorField;
-
     const formBtnsWrapper = document.createElement('div');
     formBtnsWrapper.classList.add('project__form-btns');
     formContent.appendChild(formBtnsWrapper);
@@ -84,6 +78,9 @@ const dom = (() => {
     formCancelBtn.setAttribute('type', 'button');
     formCancelBtn.textContent = 'Cancel';
     formBtnsWrapper.appendChild(formCancelBtn);
+
+    // error field
+    formContent.appendChild(formProjectTitleError);
   };
 
   const renderProjects = (projectIndex) => {
@@ -158,6 +155,7 @@ const dom = (() => {
 
   return {
     body,
+    formProjectTitleError,
     showProjectModal,
     hideProjectModal,
     renderProjects,
