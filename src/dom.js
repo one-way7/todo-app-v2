@@ -2,16 +2,19 @@ import projects from './projects';
 
 const dom = (() => {
   const projectsList = document.querySelector('.project__container');
-  const projectModal = document.querySelector('.project__modal');
+  let projectModal;
 
   const renderFormProjects = (modal = 'add') => {
     const addBtn = modal === 'add' ? 'add' : 'Edit';
+    const addBtnClass =
+      modal === 'add' ? 'project__form-add-btn' : 'project__form-edit-btn';
     const isHide = modal === 'add';
 
     const projectFormDiv = document.createElement('div');
     projectFormDiv.classList.add('project__modal');
     if (isHide) projectFormDiv.classList.add('hide');
     projectsList.appendChild(projectFormDiv);
+    projectModal = projectFormDiv;
 
     const projectForm = document.createElement('form');
     projectForm.classList.add('project__form');
@@ -42,7 +45,7 @@ const dom = (() => {
     formContent.appendChild(formBtnsWrapper);
 
     const formAddBtn = document.createElement('button');
-    formAddBtn.classList.add('project__form-add-btn');
+    formAddBtn.classList.add(addBtnClass);
     formAddBtn.setAttribute('type', 'submit');
     formAddBtn.textContent = addBtn;
     formBtnsWrapper.appendChild(formAddBtn);
