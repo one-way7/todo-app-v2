@@ -12,6 +12,11 @@ const dom = (() => {
     projectModal.classList.remove('display');
   };
 
+  const hideProjectModal = () => {
+    projectModal.classList.remove('display');
+    projectModal.classList.add('hide');
+  };
+
   const renderFormProjects = (modal, index) => {
     let addBtn = 'Add';
     let addBtnClass = 'project__form-add-btn';
@@ -137,6 +142,7 @@ const dom = (() => {
   return {
     body,
     showProjectModal,
+    hideProjectModal,
     renderProjects,
   };
 })();
