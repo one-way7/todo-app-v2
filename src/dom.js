@@ -62,6 +62,11 @@ const dom = (() => {
     formInput.value = inputValue;
     formContent.appendChild(formInput);
 
+    const errorField = document.createElement('p');
+    errorField.classList.add('error', 'hide');
+    errorField.textContent = "This field can't be empty.";
+    formContent.appendChild(errorField);
+
     const formBtnsWrapper = document.createElement('div');
     formBtnsWrapper.classList.add('project__form-btns');
     formContent.appendChild(formBtnsWrapper);
@@ -139,11 +144,23 @@ const dom = (() => {
     renderFormProjects('add');
   };
 
+  const showElement = (elem) => {
+    elem.classList.remove('hide');
+    elem.classList.add('display');
+  };
+
+  const hideElement = (elem) => {
+    elem.classList.add('hide');
+    elem.classList.remove('display');
+  };
+
   return {
     body,
     showProjectModal,
     hideProjectModal,
     renderProjects,
+    showElement,
+    hideElement,
   };
 })();
 
