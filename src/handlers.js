@@ -1,4 +1,5 @@
 import dom from './dom';
+import validation from './validation';
 
 const handlers = (() => {
   const clickHandler = () => {
@@ -10,6 +11,8 @@ const handlers = (() => {
         dom.showProjectModal();
       } else if (e.target.classList.contains('project__form-cancel-btn')) {
         dom.hideProjectModal();
+      } else if (e.target.classList.contains('project__form-add-btn')) {
+        validation.addProject(e);
       }
     });
   };
