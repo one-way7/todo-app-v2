@@ -5,6 +5,12 @@ const dom = (() => {
   let projectModal;
   let projectFormEl;
 
+  const showProjectModal = () => {
+    projectFormEl.reset();
+    projectModal.classList.remove('hide');
+    projectModal.classList.remove('display');
+  };
+
   const renderFormProjects = (modal, index) => {
     let addBtn = 'add';
     let addBtnClass = 'project__form-add-btn';
