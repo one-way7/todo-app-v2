@@ -21,6 +21,7 @@ const dom = (() => {
   const renderFormProjects = (modal, index) => {
     let addBtn = 'Add';
     let addBtnClass = 'project__form-add-btn';
+    let formName = 'project__form';
     let isHide = true;
     let inputValue = '';
 
@@ -28,7 +29,8 @@ const dom = (() => {
       addBtn = 'Edit';
       addBtnClass = 'project__form-edit-btn';
       isHide = false;
-      inputValue = projects[index].title;
+      inputValue = projects.projectsList[index].title;
+      formName = 'project__edit-form';
     }
 
     const projectFormDiv = document.createElement('div');
@@ -39,7 +41,7 @@ const dom = (() => {
 
     const projectForm = document.createElement('form');
     projectForm.classList.add('project__form');
-    projectForm.setAttribute('name', 'project__form');
+    projectForm.setAttribute('name', formName);
     projectFormDiv.appendChild(projectForm);
     projectFormEl = projectForm;
 
@@ -80,7 +82,8 @@ const dom = (() => {
     formBtnsWrapper.appendChild(formCancelBtn);
 
     // error field
-    formContent.appendChild(formProjectTitleError);
+    // formContent.appendChild(formProjectTitleError);
+    formContent.insertAdjacentElement('beforeend', formProjectTitleError);
   };
 
   const renderProjects = (projectIndex) => {
@@ -140,7 +143,17 @@ const dom = (() => {
     }
 
     // add new form line
-    renderFormProjects('add');
+    if (Number.isNaN(parseInt(projectIndex, 10))) {
+      renderFormProjects('add');
+    }
+  };
+
+  const showEditProjectForm = (projectIndex) => {
+    renderProjects(projectIndex);
+  };
+
+  const hideEditProjectForm = () => {
+    renderProjects(null);
   };
 
   const showElement = (elem) => {
@@ -157,6 +170,8 @@ const dom = (() => {
     body,
     formProjectTitleError,
     showProjectModal,
+    showEditProjectForm,
+    hideEditProjectForm,
     hideProjectModal,
     renderProjects,
     showElement,
