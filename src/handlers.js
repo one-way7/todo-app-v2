@@ -1,5 +1,6 @@
 import dom from './dom';
 import validation from './validation';
+import projects from './projects';
 
 const handlers = (() => {
   let projectIndex = 0;
@@ -35,6 +36,14 @@ const handlers = (() => {
         dom.showEditProjectForm(projectIndex);
       } else if (e.target.classList.contains('project__form-edit-btn')) {
         validation.editProject(e, projectIndex);
+      } else if (
+        e.target.classList.contains('project__delete-icon') ||
+        e.target.parentNode.classList.contains('project__delete-icon')
+      ) {
+        projectIndex = e.target
+          .closest('.project__item')
+          .getAttribute('data-index');
+        projects.removeProject(projectIndex);
       }
     });
   };
