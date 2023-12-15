@@ -4,7 +4,8 @@ import projects from './projects';
 
 const dom = (() => {
   const body = document.querySelector('body');
-  const formProjectTitleError = document.querySelector('.error');
+  const formProjectTitleError = document.querySelector('.project-form__error');
+  const formTaskTitleError = document.querySelector('.task-form__error');
   const projectsList = document.querySelector('.project__container');
   const tasksList = document.querySelector('.tasks__container');
   let projectModal;
@@ -85,8 +86,7 @@ const dom = (() => {
     formBtnsWrapper.appendChild(formCancelBtn);
 
     // error field
-    // formContent.appendChild(formProjectTitleError);
-    formContent.insertAdjacentElement('beforeend', formProjectTitleError);
+    formContent.appendChild(formProjectTitleError);
   };
 
   const renderProjects = (projectIndex) => {
@@ -194,6 +194,8 @@ const dom = (() => {
     taskFormCancelBtn.setAttribute('type', 'button');
     taskFormCancelBtn.textContent = 'Cancel';
     taskFormContent.appendChild(taskFormCancelBtn);
+
+    taskFormContent.appendChild(formTaskTitleError);
   };
 
   const renderTasks = (projectIndex, form) => {
@@ -216,18 +218,18 @@ const dom = (() => {
         for (let j = 0; j < projects.projectsList[i].tasks.length; j += 1) {
           if (
             projectIndex === 'today' &&
-            projects.projectsList[i].tasks[j] !== currDate
+            projects.projectsList[i].tasks[j].date !== currDate
           ) {
             continue;
           } else if (
             projectIndex === 'week' &&
             !(
               differenceInDays(
-                parseISO(projects.projectsList[i].tasks[j]),
+                parseISO(projects.projectsList[i].tasks[j].date),
                 parseISO(currDate),
               ) >= 0 &&
               differenceInDays(
-                parseISO(projects.projectsList[i].tasks[j]),
+                parseISO(projects.projectsList[i].tasks[j].date),
                 parseISO(currDate),
               ) <= 7
             )
@@ -450,6 +452,7 @@ const dom = (() => {
     renderTasks,
     showAddTaskForm,
     closeAddTaskForm,
+    formTaskTitleError,
   };
 })();
 
