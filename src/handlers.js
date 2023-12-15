@@ -14,20 +14,11 @@ const handlers = (() => {
         e.target.classList.contains('add-project__icon') ||
         e.target.parentNode.classList.contains('add-project__icon')
       ) {
-        dom.hideElement(dom.formProjectTitleError);
-        dom.hideEditProjectForm();
         dom.showProjectModal();
-        link = undefined;
       } else if (e.target.classList.contains('project__form-cancel-btn')) {
-        if (
-          e.target.previousSibling.classList.contains('project__form-add-btn')
-        ) {
-          dom.hideProjectModal();
-        } else {
-          dom.hideEditProjectForm();
-        }
+        dom.hideProjectModal();
       } else if (e.target.classList.contains('project__form-add-btn')) {
-        validation.addProject(e);
+        validation.addProject(e, projectIndex, link);
       } else if (
         e.target.classList.contains('project__edit-icon') ||
         e.target.parentNode.classList.contains('project__edit-icon')
@@ -36,11 +27,11 @@ const handlers = (() => {
           e.target.closest('.project__item').getAttribute('data-index'),
           10,
         );
-        dom.hideElement(dom.formProjectTitleError);
-        dom.hideProjectModal();
         dom.showEditProjectForm(projectIndex);
       } else if (e.target.classList.contains('project__form-edit-btn')) {
         validation.editProject(e, projectIndex, link);
+      } else if (e.target.classList.contains('project__form-edit-cancel-btn')) {
+        dom.hideEditProjectForm();
       } else if (
         e.target.classList.contains('project__delete-icon') ||
         e.target.parentNode.classList.contains('project__delete-icon')
@@ -55,6 +46,7 @@ const handlers = (() => {
           e.target.closest('.project__item').getAttribute('data-index'),
           10,
         );
+
         dom.changeLink(projectIndex);
         link = undefined;
       } else if (
@@ -85,7 +77,7 @@ const handlers = (() => {
       } else if (e.target.closest('.new-task__btn')) {
         dom.showAddTaskForm(projectIndex);
       } else if (e.target.classList.contains('task-form__cancel-btn')) {
-        dom.closeAddTaskForm(projectIndex);
+        dom.hideAddTaskForm();
       } else if (e.target.classList.contains('task-form__add-btn')) {
         validation.addTask(e, projectIndex);
       } else if (
@@ -107,6 +99,11 @@ const handlers = (() => {
           10,
         );
         dom.showEditTaskForm(projectIndex, taskIndex);
+      } else if (e.target.classList.contains('task-form__edit-cancel-btn')) {
+        dom.hideEditTaskForm(projectIndex);
+        dom.hideElement(dom.formTaskTitleError);
+      } else if (e.target.classList.contains('task-form__edit-btn')) {
+        validation.editTask(e, projectIndex, taskIndex, link);
       }
     });
   };
