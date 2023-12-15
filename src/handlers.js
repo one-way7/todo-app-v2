@@ -39,7 +39,7 @@ const handlers = (() => {
         dom.hideProjectModal();
         dom.showEditProjectForm(projectIndex);
       } else if (e.target.classList.contains('project__form-edit-btn')) {
-        validation.editProject(e, projectIndex);
+        validation.editProject(e, projectIndex, link);
       } else if (
         e.target.classList.contains('project__delete-icon') ||
         e.target.parentNode.classList.contains('project__delete-icon')
@@ -91,11 +91,21 @@ const handlers = (() => {
         e.target.classList.contains('new-task__delete-icon') ||
         e.target.parentNode.classList.contains('new-task__delete-icon')
       ) {
-        taskIndex = e.target
-          .closest('.new-task')
-          .getAttribute('data-task-index');
+        taskIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-task-index'),
+          10,
+        );
 
         tasks.removeTask(projectIndex, taskIndex, link);
+      } else if (
+        e.target.classList.contains('new-task__edit-icon') ||
+        e.target.parentNode.classList.contains('new-task__edit-icon')
+      ) {
+        taskIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-task-index'),
+          10,
+        );
+        dom.showEditTaskForm(projectIndex, taskIndex);
       }
     });
   };
