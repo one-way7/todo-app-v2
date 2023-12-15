@@ -1,9 +1,12 @@
+import { differenceInDays, format, parseISO } from 'date-fns';
+
 import projects from './projects';
 
 const dom = (() => {
   const body = document.querySelector('body');
   const formProjectTitleError = document.querySelector('.error');
   const projectsList = document.querySelector('.project__container');
+  const tasksList = document.querySelector('.tasks__container');
   let projectModal;
   let projectFormEl;
 
@@ -148,6 +151,167 @@ const dom = (() => {
     }
   };
 
+  const renderTasks = (projectIndex) => {
+    let indexStart;
+    let indexEnd;
+    const currDate = format(new Date(), 'yyyy-MM-dd');
+
+    tasksList.textContent = '';
+
+    if (projects.projectsList.length >= 1) {
+      if (typeof projectIndex === 'number') {
+        indexStart = projectIndex;
+        indexEnd = projectIndex + 1;
+      } else {
+        indexStart = 0;
+        indexEnd = projects.projectsList.length;
+      }
+
+      for (let i = indexStart; i < indexEnd; i += 1) {
+        for (let j = 0; j < projects.projectsList[i].tasks.length; j += 1) {
+          if (
+            projectIndex === 'today' &&
+            projects.projectsList[i].tasks[j] !== currDate
+          ) {
+            continue;
+          } else if (
+            projectIndex === 'week' &&
+            !(
+              differenceInDays(
+                parseISO(projects.projectsList[i].tasks[j]),
+                parseISO(currDate),
+              ) >= 0 &&
+              differenceInDays(
+                parseISO(projects.projectsList[i].tasks[j]),
+                parseISO(currDate),
+              ) <= 7
+            )
+          ) {
+            continue;
+          } else if (
+            projectIndex === 'important' &&
+            projects.projectsList[i].tasks[j].important !== true
+          ) {
+            continue;
+          } else if (
+            projectIndex === 'completed' &&
+            projects.projectsList[i].tasks[j].completed !== true
+          ) {
+            continue;
+          }
+
+          const taskItem = document.createElement('div');
+          taskItem.classList.add('new-task');
+          taskItem.setAttribute('data-project-index', i);
+          taskItem.setAttribute('data-task-index', j);
+          tasksList.appendChild(taskItem);
+
+          const taskLeftContentWrapper = document.createElement('div');
+          taskLeftContentWrapper.classList.add('new-task__left');
+          taskItem.appendChild(taskLeftContentWrapper);
+
+          const taskDoneIconWrapper = document.createElement('div');
+          taskDoneIconWrapper.classList.add('new-task__done-icon');
+          taskLeftContentWrapper.appendChild(taskDoneIconWrapper);
+
+          const taskDoneIcon = document.createElement('i');
+          taskDoneIcon.classList.add('ri-square-line');
+          taskDoneIconWrapper.appendChild(taskDoneIcon);
+
+          const taskTitle = document.createElement('p');
+          taskTitle.classList.add('new-task__name');
+          taskTitle.textContent = projects.projectsList[i].tasks[j].title;
+          taskLeftContentWrapper.appendChild(taskTitle);
+
+          const taskRightContentWrapper = document.createElement('div');
+          taskRightContentWrapper.classList.add('new-task__right');
+          taskItem.appendChild(taskRightContentWrapper);
+
+          const taskProjectNameWrapper = document.createElement('div');
+          taskProjectNameWrapper.classList.add('new-task__project');
+          taskRightContentWrapper.appendChild(taskProjectNameWrapper);
+
+          const taskProjectIcon = document.createElement('i');
+          taskProjectIcon.classList.add(
+            'ri-terminal-line',
+            'new-task__project-icon',
+          );
+          taskProjectNameWrapper.appendChild(taskProjectIcon);
+
+          const taskProjectName = document.createElement('p');
+          taskProjectName.classList.add('new-task__project-title');
+          taskProjectName.textContent = projects.projectsList[i].title;
+          taskProjectNameWrapper.appendChild(taskProjectName);
+
+          if (projects.projectsList[i].tasks[j].date !== '') {
+            const taskDate = document.createElement('div');
+            taskDate.classList.add('new-task__date');
+            taskDate.textContent = projects.projectsList[i].tasks[j].date;
+            taskRightContentWrapper.appendChild(taskDate);
+          }
+
+          const taskImportantIconWrapper = document.createElement('div');
+          taskImportantIconWrapper.classList.add('new-task__important-icon');
+          taskRightContentWrapper.appendChild(taskImportantIconWrapper);
+
+          const taskImportantIcon = document.createElement('i');
+          taskImportantIcon.classList.add('ri-star-line');
+          taskImportantIconWrapper.appendChild(taskImportantIcon);
+
+          const taskEditIconWrapper = document.createElement('div');
+          taskEditIconWrapper.classList.add('new-task__edit-icon');
+          taskRightContentWrapper.appendChild(taskEditIconWrapper);
+
+          const taskEditIcon = document.createElement('i');
+          taskEditIcon.classList.add('ri-edit-line');
+          taskEditIconWrapper.appendChild(taskEditIcon);
+
+          const taskDeleteIconWrapper = document.createElement('div');
+          taskDeleteIconWrapper.classList.add('new-task__delete-icon');
+          taskRightContentWrapper.appendChild(taskDeleteIconWrapper);
+
+          const taskDeleteIcon = document.createElement('i');
+          taskDeleteIcon.classList.add('ri-close-line');
+          taskDeleteIconWrapper.appendChild(taskDeleteIcon);
+        }
+      }
+
+      // add task line
+      if (typeof projectIndex === 'number') {
+        const taskAdd = document.createElement('div');
+        taskAdd.classList.add('new-task__btn');
+        taskAdd.setAttribute('data-project-index', projectIndex);
+        tasksList.appendChild(taskAdd);
+
+        const taskAddIconWrapper = document.createElement('div');
+        taskAddIconWrapper.classList.add('new-task__add-icon');
+        taskAdd.appendChild(taskAddIconWrapper);
+
+        const taskAddIcon = document.createElement('i');
+        taskAddIcon.classList.add('ri-add-line');
+        taskAddIconWrapper.appendChild(taskAddIcon);
+
+        const taskAddText = document.createElement('p');
+        taskAddText.classList.add('new-task__text');
+        taskAddText.textContent = 'Add new task';
+        taskAdd.appendChild(taskAddText);
+      }
+    } else {
+      const noProjectLine = document.createElement('div');
+      noProjectLine.classList.add('task__no-project');
+      tasksList.appendChild(noProjectLine);
+
+      const noProjectIcon = document.createElement('i');
+      noProjectIcon.classList.add('ri-error-warning-line');
+      noProjectLine.appendChild(noProjectIcon);
+
+      const noProjectText = document.createTextNode(
+        "You don't have any projects, create one.",
+      );
+      noProjectLine.appendChild(noProjectText);
+    }
+  };
+
   const showEditProjectForm = (projectIndex) => {
     renderProjects(projectIndex);
   };
@@ -211,6 +375,7 @@ const dom = (() => {
   const changeLink = (projectIndex) => {
     selectLink(projectIndex);
     renderHeader(projectIndex);
+    renderTasks(projectIndex);
   };
 
   return {
@@ -224,6 +389,7 @@ const dom = (() => {
     showElement,
     hideElement,
     changeLink,
+    renderTasks,
   };
 })();
 
