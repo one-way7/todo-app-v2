@@ -82,6 +82,8 @@ const handlers = (() => {
         dom.showAddTaskForm(projectIndex);
       } else if (e.target.classList.contains('task-form__cancel-btn')) {
         dom.closeAddTaskForm(projectIndex);
+      } else if (e.target.classList.contains('task-form__add-btn')) {
+        validation.addTask(e, projectIndex);
       }
     });
   };
