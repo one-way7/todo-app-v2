@@ -26,9 +26,17 @@ const tasks = (() => {
     dom.renderTasks(link);
   };
 
+  const editTask = (title, date, projectIndex, taskIndex, link) => {
+    projects.projectsList[projectIndex].tasks[taskIndex].title = title;
+    projects.projectsList[projectIndex].tasks[taskIndex].date = date;
+
+    dom.renderTasks(link);
+  };
+
   return {
     createTask,
     removeTask,
+    editTask,
   };
 })();
 
