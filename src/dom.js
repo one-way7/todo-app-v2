@@ -87,21 +87,21 @@ const dom = (() => {
   };
 
   const renderProjects = (projectIndex) => {
-    // create projectDiv
+    // create projectLink
     projectsList.textContent = '';
 
     for (let i = 0; i < projects.projectsList.length; i += 1) {
-      const projectDiv = document.createElement('div');
+      const projectLink = document.createElement('a');
 
       if (parseInt(projectIndex, 10) !== i) {
-        projectDiv.classList.add('project__item');
-        projectDiv.setAttribute('data-index', i);
-        projectsList.appendChild(projectDiv);
+        projectLink.classList.add('project__item');
+        projectLink.setAttribute('data-index', i);
+        projectsList.appendChild(projectLink);
 
         // create content container
         const projectContent = document.createElement('div');
         projectContent.classList.add('project__content');
-        projectDiv.appendChild(projectContent);
+        projectLink.appendChild(projectContent);
 
         // create icon
         const projectIconWrapper = document.createElement('div');
@@ -120,7 +120,7 @@ const dom = (() => {
         // create settings icon
         const projectIconsContainer = document.createElement('div');
         projectIconsContainer.classList.add('project__setting-icons');
-        projectDiv.appendChild(projectIconsContainer);
+        projectLink.appendChild(projectIconsContainer);
 
         const editIconWrapper = document.createElement('div');
         editIconWrapper.classList.add('project__edit-icon');
