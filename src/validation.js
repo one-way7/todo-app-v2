@@ -9,23 +9,22 @@ const validation = (() => {
     e.preventDefault();
 
     if (projectTitle !== '') {
+      dom.hideProjectModal();
       projects.createProject(projectTitle);
       dom.hideElement(dom.formProjectTitleError);
-      dom.hideProjectModal();
     } else if (projectTitle === '') {
       dom.showElement(dom.formProjectTitleError);
     }
   };
 
-  const editProject = (e, projectIndex) => {
+  const editProject = (e, projectIndex, link) => {
     const projectTitle = document.forms['project__edit-form']['title'].value;
 
     e.preventDefault();
 
     if (projectTitle !== '') {
+      projects.editProject(projectTitle, projectIndex, link);
       dom.hideElement(dom.formProjectTitleError);
-      projects.editProject(projectTitle, projectIndex);
-      dom.renderProjects();
     } else if (projectTitle === '') {
       dom.showElement(dom.formProjectTitleError);
     }
@@ -44,6 +43,8 @@ const validation = (() => {
       dom.showElement(dom.formTaskTitleError);
     }
   };
+
+  const editTask = (e, projectIndex, taskIndex) => {};
 
   return {
     addProject,
