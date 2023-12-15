@@ -1,11 +1,10 @@
 import dom from './dom';
 import projects from './projects';
+import tasks from './tasks';
 
 const validation = (() => {
   const addProject = (e) => {
-    const projectTitle = document.forms['project__form'].querySelector(
-      'input[name="title"]',
-    ).value;
+    const projectTitle = document.forms['project__form']['title'].value;
 
     e.preventDefault();
 
@@ -19,13 +18,12 @@ const validation = (() => {
   };
 
   const editProject = (e, projectIndex) => {
-    const projectTitle = document.forms['project__edit-form'].querySelector(
-      'input[name="title"]',
-    ).value;
+    const projectTitle = document.forms['project__edit-form']['title'].value;
 
     e.preventDefault();
 
     if (projectTitle !== '') {
+      dom.hideElement(dom.formProjectTitleError);
       projects.editProject(projectTitle, projectIndex);
       dom.renderProjects();
     } else if (projectTitle === '') {
@@ -33,9 +31,24 @@ const validation = (() => {
     }
   };
 
+  const addTask = (e, projectIndex) => {
+    const taskTitle = document.forms['task__form']['title'].value;
+    const taskDate = document.forms['task__form']['date'].value;
+
+    e.preventDefault();
+
+    if (taskTitle !== '') {
+      dom.hideElement(dom.formTaskTitleError);
+      tasks.createTask(projectIndex, taskTitle, taskDate);
+    } else {
+      dom.showElement(dom.formTaskTitleError);
+    }
+  };
+
   return {
     addProject,
     editProject,
+    addTask,
   };
 })();
 
