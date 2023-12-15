@@ -166,6 +166,53 @@ const dom = (() => {
     elem.classList.remove('display');
   };
 
+  const selectLink = (projectIndex) => {
+    const allLinks = document.querySelectorAll('.nav__link, .project__item');
+
+    const inboxLink = document.querySelector('.inbox__link');
+    const todayLink = document.querySelector('.today__link');
+    const nextDaysLink = document.querySelector('.next__link');
+    const importantLink = document.querySelector('.important__link');
+    const completedLink = document.querySelector('.completed__link');
+    const projectLinks = document.querySelectorAll('.project__item');
+
+    allLinks.forEach((link) => {
+      link.classList.remove('active');
+    });
+
+    if (typeof projectIndex === 'number') {
+      projectLinks[projectIndex].classList.add('active');
+    } else if (projectIndex === 'inbox') {
+      inboxLink.classList.add('active');
+    } else if (projectIndex === 'today') {
+      todayLink.classList.add('active');
+    } else if (projectIndex === 'week') {
+      nextDaysLink.classList.add('active');
+    } else if (projectIndex === 'important') {
+      importantLink.classList.add('active');
+    } else if (projectIndex === 'completed') {
+      completedLink.classList.add('active');
+    }
+  };
+
+  const renderHeader = (projectIndex) => {
+    const headerTitle = document.querySelector('.main__header');
+
+    if (typeof projectIndex === 'number') {
+      headerTitle.textContent = projects.projectsList[projectIndex].title;
+      document.title = `${projects.projectsList[projectIndex].title} - TODO`;
+    } else {
+      headerTitle.textContent =
+        projectIndex[0].toUpperCase() + projectIndex.slice(1);
+      document.title = projectIndex[0].toUpperCase() + projectIndex.slice(1);
+    }
+  };
+
+  const changeLink = (projectIndex) => {
+    selectLink(projectIndex);
+    renderHeader(projectIndex);
+  };
+
   return {
     body,
     formProjectTitleError,
@@ -176,6 +223,7 @@ const dom = (() => {
     renderProjects,
     showElement,
     hideElement,
+    changeLink,
   };
 })();
 
