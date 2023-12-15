@@ -21,7 +21,7 @@ const dom = (() => {
     projectModal.classList.add('hide');
   };
 
-  const renderFormProjects = (modal, index) => {
+  const renderProjectsForm = (modal, index) => {
     let addBtn = 'Add';
     let addBtnClass = 'project__form-add-btn';
     let formName = 'project__form';
@@ -141,17 +141,62 @@ const dom = (() => {
         deleteIcon.classList.add('ri-close-line');
         deleteIconWrapper.appendChild(deleteIcon);
       } else {
-        renderFormProjects('edit', projectIndex);
+        renderProjectsForm('edit', projectIndex);
       }
     }
 
     // add new form line
     if (Number.isNaN(parseInt(projectIndex, 10))) {
-      renderFormProjects('add');
+      renderProjectsForm('add');
     }
   };
 
-  const renderTasks = (projectIndex) => {
+  const renderTasksForm = (modal, projectIndex) => {
+    const taskFormContainer = document.createElement('div');
+    taskFormContainer.classList.add('task-form__container');
+    tasksList.appendChild(taskFormContainer);
+
+    const taskForm = document.createElement('form');
+    taskForm.classList.add('task-form');
+    taskForm.setAttribute('name', 'task__form');
+    taskForm.setAttribute('data-project-index', projectIndex);
+    taskFormContainer.appendChild(taskForm);
+
+    const taskFormContent = document.createElement('div');
+    taskFormContent.classList.add('task-form__content');
+    taskForm.appendChild(taskFormContent);
+
+    const taskFormIcon = document.createElement('i');
+    taskFormIcon.classList.add('ri-list-check-3');
+    taskFormContent.appendChild(taskFormIcon);
+
+    const taskFormTitleInput = document.createElement('input');
+    taskFormTitleInput.classList.add('task-form__title-input');
+    taskFormTitleInput.setAttribute('type', 'text');
+    taskFormTitleInput.setAttribute('name', 'title');
+    taskFormTitleInput.setAttribute('placeholder', 'Enter Task Name');
+    taskFormContent.appendChild(taskFormTitleInput);
+
+    const taskFormDateInput = document.createElement('input');
+    taskFormDateInput.classList.add('task-form__date-input');
+    taskFormDateInput.setAttribute('type', 'date');
+    taskFormDateInput.setAttribute('name', 'date');
+    taskFormContent.appendChild(taskFormDateInput);
+
+    const taskFormAddBtn = document.createElement('button');
+    taskFormAddBtn.classList.add('task-form__add-btn');
+    taskFormAddBtn.setAttribute('type', 'submit');
+    taskFormAddBtn.textContent = 'Add';
+    taskFormContent.appendChild(taskFormAddBtn);
+
+    const taskFormCancelBtn = document.createElement('button');
+    taskFormCancelBtn.classList.add('task-form__cancel-btn');
+    taskFormCancelBtn.setAttribute('type', 'button');
+    taskFormCancelBtn.textContent = 'Cancel';
+    taskFormContent.appendChild(taskFormCancelBtn);
+  };
+
+  const renderTasks = (projectIndex, form) => {
     let indexStart;
     let indexEnd;
     const currDate = format(new Date(), 'yyyy-MM-dd');
@@ -276,25 +321,30 @@ const dom = (() => {
         }
       }
 
-      // add task line
       if (typeof projectIndex === 'number') {
-        const taskAdd = document.createElement('div');
-        taskAdd.classList.add('new-task__btn');
-        taskAdd.setAttribute('data-project-index', projectIndex);
-        tasksList.appendChild(taskAdd);
+        if (form === 'add') {
+          // add form line
+          renderTasksForm('', projectIndex);
+        } else {
+          // add task line
+          const taskAdd = document.createElement('div');
+          taskAdd.classList.add('new-task__btn');
+          taskAdd.setAttribute('data-project-index', projectIndex);
+          tasksList.appendChild(taskAdd);
 
-        const taskAddIconWrapper = document.createElement('div');
-        taskAddIconWrapper.classList.add('new-task__add-icon');
-        taskAdd.appendChild(taskAddIconWrapper);
+          const taskAddIconWrapper = document.createElement('div');
+          taskAddIconWrapper.classList.add('new-task__add-icon');
+          taskAdd.appendChild(taskAddIconWrapper);
 
-        const taskAddIcon = document.createElement('i');
-        taskAddIcon.classList.add('ri-add-line');
-        taskAddIconWrapper.appendChild(taskAddIcon);
+          const taskAddIcon = document.createElement('i');
+          taskAddIcon.classList.add('ri-add-line');
+          taskAddIconWrapper.appendChild(taskAddIcon);
 
-        const taskAddText = document.createElement('p');
-        taskAddText.classList.add('new-task__text');
-        taskAddText.textContent = 'Add new task';
-        taskAdd.appendChild(taskAddText);
+          const taskAddText = document.createElement('p');
+          taskAddText.classList.add('new-task__text');
+          taskAddText.textContent = 'Add new task';
+          taskAdd.appendChild(taskAddText);
+        }
       }
     } else {
       const noProjectLine = document.createElement('div');
@@ -318,6 +368,14 @@ const dom = (() => {
 
   const hideEditProjectForm = () => {
     renderProjects(null);
+  };
+
+  const showAddTaskForm = (projectIndex) => {
+    renderTasks(projectIndex, 'add');
+  };
+
+  const closeAddTaskForm = (projectIndex) => {
+    renderTasks(projectIndex, '');
   };
 
   const showElement = (elem) => {
@@ -390,6 +448,8 @@ const dom = (() => {
     hideElement,
     changeLink,
     renderTasks,
+    showAddTaskForm,
+    closeAddTaskForm,
   };
 })();
 
