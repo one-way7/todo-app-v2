@@ -5,7 +5,7 @@ const tasks = (() => {
   class Task {
     important = false;
 
-    done = false;
+    completed = false;
 
     constructor(title, date) {
       this.title = title;
@@ -13,7 +13,7 @@ const tasks = (() => {
     }
   }
 
-  const createTask = (projectIndex, title, date = '', link = projectIndex) => {
+  const createTask = (projectIndex, title, date = '') => {
     const newTask = new Task(title, date);
 
     projects.projectsList[projectIndex].tasks.push(newTask);
