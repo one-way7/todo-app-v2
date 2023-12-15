@@ -21,8 +21,14 @@ const tasks = (() => {
     dom.renderTasks(projectIndex);
   };
 
+  const removeTask = (projectIndex, taskIndex, link = projectIndex) => {
+    projects.projectsList[projectIndex].tasks.splice(taskIndex, 1);
+    dom.renderTasks(link);
+  };
+
   return {
     createTask,
+    removeTask,
   };
 })();
 
