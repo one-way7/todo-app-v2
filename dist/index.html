@@ -5,11 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToDo App</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
   <script src="main.js" defer></script>
 </head>
 <body>
-  
+  <header class="header">
+    <div class="header__wrapper">
+      <div class="header__logo">
+        <i class="ri-task-line"></i>
+      </div>
+      <div class="header__text">ToDo App</div>
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <nav class="nav">
+      <ul class="nav__list">
+
+        <li class="nav__link inbox__link">
+          <div class="link__icon">
+            <i class="ri-inbox-line"></i>
+          </div>
+          <p class="link__text">Inbox</p>
+        </li>
+
+        <li class="nav__link today__link">
+          <div class="link__icon">
+            <i class="ri-calendar-event-line"></i>
+          </div>
+          <p class="link__text">Today</p>
+        </li>
+
+        <li class="nav__link  next__link">
+          <div class="link__icon">
+            <i class="ri-calendar-2-line"></i>
+          </div>
+          <p class="link__text">Next 7 days</p>
+        </li>
+
+        <li class="nav__link  important__link">
+          <div class="link__icon">
+            <i class="ri-inbox-line"></i>
+          </div>
+          <p class="link__text">Important</p>
+        </li>
+
+        <li class="nav__link completed__link">
+          <div class="link__icon">
+            <i class="ri-check-double-line"></i>
+          </div>
+          <p class="link__text">Completed</p>
+        </li>
+
+      </ul>
+    </nav>
+
+    <div class="siderbar__project">
+      <div class="add-project__wrapper">
+        <h3 class="add-project__name">Projects</h3>
+        <div class="add-project__icon">
+          <i class="ri-add-line"></i>
+        </div>
+      </div>
+
+      <div class="project__container">
+
+      </div>
+      <p class="project-form__error hide">This field can't be empty.</p>
+      <p class="task-form__error hide">This field can't be empty.</p>
+
+    </div>
+  </div>
+
+  <main class="main">
+    <h1 class="main__header"></h1>
+    <div class="tasks__container"></div>
+  </main>
 
 </body>
 </html>
