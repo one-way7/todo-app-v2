@@ -120,15 +120,15 @@ const dom = (() => {
     projectsList.appendChild(projectFormContainer);
   };
 
-  const renderTasks = (projectIndex, taskIndex) => {
+  const renderTasks = (projectIndex, taskIndex, link = projectIndex) => {
     let indexStart;
     let indexEnd;
     const currDate = format(new Date(), 'yyyy-MM-dd');
 
     tasksList.textContent = '';
-
+    console.log(projectIndex, taskIndex);
     if (projects.projectsList.length >= 1) {
-      if (typeof projectIndex === 'number') {
+      if (typeof link === 'number') {
         indexStart = projectIndex;
         indexEnd = projectIndex + 1;
       } else {
@@ -139,12 +139,12 @@ const dom = (() => {
       for (let i = indexStart; i < indexEnd; i += 1) {
         for (let j = 0; j < projects.projectsList[i].tasks.length; j += 1) {
           if (
-            projectIndex === 'today' &&
+            link === 'today' &&
             projects.projectsList[i].tasks[j].date !== currDate
           ) {
             continue;
           } else if (
-            projectIndex === 'week' &&
+            link === 'week' &&
             !(
               differenceInDays(
                 parseISO(projects.projectsList[i].tasks[j].date),
@@ -158,16 +158,17 @@ const dom = (() => {
           ) {
             continue;
           } else if (
-            projectIndex === 'important' &&
+            link === 'important' &&
             projects.projectsList[i].tasks[j].important !== true
           ) {
             continue;
           } else if (
-            projectIndex === 'completed' &&
+            link === 'completed' &&
             projects.projectsList[i].tasks[j].completed !== true
           ) {
             continue;
-          } else if (taskIndex === j) {
+          } else if (projectIndex === i && taskIndex === j) {
+            console.log(1);
             const taskFormContainer = document.createElement('div');
             taskFormContainer.classList.add('edit-task-form__container');
             tasksList.appendChild(taskFormContainer);
@@ -333,12 +334,12 @@ const dom = (() => {
     renderProjects();
   };
 
-  const showEditTaskForm = (projectIndex, editTaskIndex) => {
-    renderTasks(projectIndex, editTaskIndex);
+  const showEditTaskForm = (projectIndex, taskIndex, link) => {
+    renderTasks(projectIndex, taskIndex, link);
   };
 
-  const hideEditTaskForm = (projectIndex) => {
-    renderTasks(projectIndex);
+  const hideEditTaskForm = (projectIndex, taskIndex, link) => {
+    renderTasks(projectIndex, taskIndex, link);
   };
 
   const showAddTaskForm = () => {
@@ -423,6 +424,7 @@ const dom = (() => {
       showAddTaskButton();
     } else {
       hideAddTaskButton();
+      hideAddTaskForm();
     }
   };
 

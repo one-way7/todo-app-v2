@@ -27,6 +27,7 @@ const handlers = (() => {
           e.target.closest('.project__item').getAttribute('data-index'),
           10,
         );
+
         dom.showEditProjectForm(projectIndex);
       } else if (e.target.classList.contains('project__form-edit-btn')) {
         validation.editProject(e, projectIndex, link);
@@ -84,6 +85,10 @@ const handlers = (() => {
         e.target.classList.contains('new-task__delete-icon') ||
         e.target.parentNode.classList.contains('new-task__delete-icon')
       ) {
+        projectIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-project-index'),
+          10,
+        );
         taskIndex = parseInt(
           e.target.closest('.new-task').getAttribute('data-task-index'),
           10,
@@ -94,13 +99,17 @@ const handlers = (() => {
         e.target.classList.contains('new-task__edit-icon') ||
         e.target.parentNode.classList.contains('new-task__edit-icon')
       ) {
+        projectIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-project-index'),
+          10,
+        );
         taskIndex = parseInt(
           e.target.closest('.new-task').getAttribute('data-task-index'),
           10,
         );
-        dom.showEditTaskForm(projectIndex, taskIndex);
+        dom.showEditTaskForm(projectIndex, taskIndex, link);
       } else if (e.target.classList.contains('task-form__edit-cancel-btn')) {
-        dom.hideEditTaskForm(projectIndex);
+        dom.hideEditTaskForm(projectIndex, '', link);
         dom.hideElement(dom.formTaskTitleError);
       } else if (e.target.classList.contains('task-form__edit-btn')) {
         validation.editTask(e, projectIndex, taskIndex, link);
