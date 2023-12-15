@@ -17,6 +17,7 @@ const handlers = (() => {
         dom.hideElement(dom.formProjectTitleError);
         dom.hideEditProjectForm();
         dom.showProjectModal();
+        link = undefined;
       } else if (e.target.classList.contains('project__form-cancel-btn')) {
         if (
           e.target.previousSibling.classList.contains('project__form-add-btn')
@@ -50,12 +51,12 @@ const handlers = (() => {
         );
         projects.removeProject(projectIndex);
       } else if (e.target.closest('.project__item')) {
-        link = undefined;
         projectIndex = parseInt(
           e.target.closest('.project__item').getAttribute('data-index'),
           10,
         );
         dom.changeLink(projectIndex);
+        link = undefined;
       } else if (
         e.target.closest('.nav__link')?.classList.contains('inbox__link')
       ) {
