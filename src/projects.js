@@ -16,11 +16,16 @@ const projects = (() => {
     }
   }
 
-  const createProject = (title) => {
+  const createProject = (title, projectIndex, link) => {
     const newProject = new Project(title);
     projectsList.push(newProject);
     dom.renderProjects();
-    dom.changeLink(projectsList.length - 1);
+
+    if (link === undefined) {
+      dom.changeLink(projectIndex);
+    } else {
+      dom.changeLink(link);
+    }
   };
 
   const editProject = (title, index, link) => {
