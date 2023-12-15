@@ -1,9 +1,11 @@
 import dom from './dom';
 import validation from './validation';
 import projects from './projects';
+import tasks from './tasks';
 
 const handlers = (() => {
   let projectIndex = 0;
+  let taskIndex = 0;
   let link = 'inbox';
 
   const clickHandler = () => {
@@ -48,6 +50,7 @@ const handlers = (() => {
         );
         projects.removeProject(projectIndex);
       } else if (e.target.closest('.project__item')) {
+        link = undefined;
         projectIndex = parseInt(
           e.target.closest('.project__item').getAttribute('data-index'),
           10,
@@ -84,6 +87,15 @@ const handlers = (() => {
         dom.closeAddTaskForm(projectIndex);
       } else if (e.target.classList.contains('task-form__add-btn')) {
         validation.addTask(e, projectIndex);
+      } else if (
+        e.target.classList.contains('new-task__delete-icon') ||
+        e.target.parentNode.classList.contains('new-task__delete-icon')
+      ) {
+        taskIndex = e.target
+          .closest('.new-task')
+          .getAttribute('data-task-index');
+
+        tasks.removeTask(projectIndex, taskIndex, link);
       }
     });
   };
