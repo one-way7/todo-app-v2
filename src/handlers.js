@@ -78,6 +78,10 @@ const handlers = (() => {
       ) {
         link = 'completed';
         dom.changeLink('completed');
+      } else if (e.target.closest('.new-task__btn')) {
+        dom.showAddTaskForm(projectIndex);
+      } else if (e.target.classList.contains('task-form__cancel-btn')) {
+        dom.closeAddTaskForm(projectIndex);
       }
     });
   };
