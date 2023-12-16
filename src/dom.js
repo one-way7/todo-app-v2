@@ -273,7 +273,10 @@ const dom = (() => {
           taskRightContentWrapper.appendChild(taskImportantIconWrapper);
 
           const taskImportantIcon = document.createElement('i');
-          taskImportantIcon.classList.add('ri-star-line');
+          const importantIconClass = projects.projectsList[i].tasks[j].important
+            ? 'ri-star-fill'
+            : 'ri-star-line';
+          taskImportantIcon.classList.add(importantIconClass);
           taskImportantIconWrapper.appendChild(taskImportantIcon);
 
           const taskEditIconWrapper = document.createElement('div');
