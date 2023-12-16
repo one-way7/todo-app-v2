@@ -7,7 +7,7 @@
   --small-font-size: 1.6rem;
   --smaller-font-size: 1.5rem;
   --font-light: 300;
-  --font-medium: 500; 
+  --font-medium: 500;
   --font-bold: 700;
 
   /* color */
@@ -76,17 +76,20 @@ a {
 .nav__list {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .nav__link {
+  height: 4rem;
   padding: 0 1rem;
   display: flex;
+  align-items: center;
   gap: 1rem;
 
   font-size: var(--normal-font-size);
   font-weight: var(--light-grey);
 
+  transition: all 255ms ease-in-out;
   cursor: pointer;
 }
 
@@ -100,10 +103,12 @@ a {
 }
 
 .add-project__icon {
+  display: grid;
+  place-items: center;
   cursor: pointer;
 }
 
-.new-projects__container {
+.project__container {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -112,31 +117,116 @@ a {
   font-size: var(--small-font-size);
 }
 
-.new-project__item {
+.project__item {
+  height: 4rem;
   padding-inline: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  transition: all 255ms ease-in-out;
+  cursor: pointer;
 }
 
-.new-project__content {
+.nav__link:hover,
+.project__item:hover {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  background-color: var(--main-white-color);
+  border-radius: 10px;
+}
+
+.project__content {
   display: flex;
   gap: .6rem;
 }
 
-.new-project__setting-icons {
+.project__setting-icons {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.new-project__edit-icon {
+.project__edit-icon {
   cursor: pointer;
 }
 
-.new-project__delete-icon {
+.project__delete-icon {
   font-size: var(--big-font-size);
   cursor: pointer;
+}
+
+.project__form-content {
+  position: relative;
+  padding-inline: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
+  column-gap: 1rem;
+}
+
+.project__form-input {
+  flex-grow: 1;
+
+  padding: 1rem;
+  height: 3rem;
+  font-family: var(--body-font);
+}
+
+.project__form-btns {
+  display: flex;
+  gap: 2rem;
+}
+
+.project__form-add-btn,
+.project__form-edit-btn,
+.project__form-cancel-btn,
+.project__form-edit-cancel-btn {
+  width: 6rem;
+  height: 3rem;
+
+  font-family: inherit;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition: background-color 255ms ease-in-out, color 255ms ease-in-out;
+}
+
+.project__form-add-btn,
+.project__form-edit-btn {
+  border: 1px solid var(--main-white-color);
+  background-color: var(--dark-color);
+  color: var(--main-white-color);
+}
+
+.project__form-cancel-btn,
+.project__form-edit-cancel-btn {
+  border: 1px solid var(--dark-color);
+  background-color: var(--main-white-color);
+  color: var(--dark-color);
+}
+
+.project__form-add-btn:hover,
+.project__form-edit-btn:hover {
+  border: 1px solid var(--dark-color);
+  background-color: var(--main-white-color);
+  color: var(--dark-color);
+}
+
+.project__form-cancel-btn:hover,
+.project__form-edit-cancel-btn:hover {
+  border: 1px solid var(--main-white-color);
+  background-color: var(--dark-color);
+  color: var(--main-white-color);
+}
+
+.project-form__error {
+  position: absolute;
+  top: 3.1rem;
+  left: 3.8rem;
+  font-size: 1.2rem;
+  text-decoration: underline;
 }
 
 /* main */
@@ -151,16 +241,14 @@ a {
 }
 
 .tasks__container {
-  height: 100%;
   display: grid;
   grid-template-rows: 5rem;
   grid-auto-rows: 5rem;
   gap: 1rem;
 }
 
-.new-task__btn {
-  padding-inline: 2rem;
-  /* padding-bottom: 2rem; */
+.new-task__btn-content {
+  padding: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -173,10 +261,11 @@ a {
 }
 
 .new-task {
+  height: 5rem;
   padding-inline: 2rem;
   display: grid;
-  grid-template-columns: 4fr 1fr;
-  
+  grid-template-columns: 2fr 1fr;
+
 
   font-size: var(--normal-font-size);
   border-bottom: 1px solid var(--dark-color);
@@ -191,10 +280,48 @@ a {
   cursor: pointer;
 }
 
+.new-task__done-icon {
+  position: relative;
+}
+
+.new-task__done-icon.done::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  left: -1px;
+  top: -13px;
+  width: 14px;
+  height: 18px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+
+  z-index: 20;
+}
+
+.new-task__name.done {
+  text-decoration: line-through;
+}
+
 .new-task__right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 2rem;
+}
+
+.new-task__project {
+  padding-inline: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-left: 1px solid var(--dark-color);
+  border-right: 1px solid var(--dark-color);
+  border-bottom: 1px solid var(--dark-color);
 }
 
 .new-task__important-icon {
@@ -209,4 +336,111 @@ a {
   font-size: var(--big-font-size);
 
   cursor: pointer;
+}
+
+.task__no-project {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--big-font-size);
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.no-task__line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  gap: 1rem;
+  font-size: var(--big-font-size);
+}
+
+.task-form__container,
+.edit-task-form__container {
+  padding-bottom: 2rem;
+  height: 5rem;
+  display: grid;
+  align-items: center;
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.task-form__content {
+  position: relative;
+  padding-inline: 2rem;
+  display: flex;
+  align-items: center;
+  font-size: var(--big-font-size);
+  gap: 1.5rem
+}
+
+.task-form__title-input {
+  padding-inline: 1rem;
+  height: 3rem;
+  flex-grow: 1;
+  flex-basis: 3rem;
+
+  font-family: var(--body-font);
+}
+
+.task-form__add-btn,
+.task-form__edit-btn,
+.task-form__cancel-btn,
+.task-form__edit-cancel-btn {
+  width: 6rem;
+  height: 3rem;
+
+  font-family: inherit;
+  font-weight: 800;
+
+  cursor: pointer;
+  transition: background-color 255ms ease-in-out, color 255ms ease-in-out;
+}
+
+.task-form__add-btn,
+.task-form__edit-btn {
+  border: 1px solid var(--main-white-color);
+  background-color: var(--dark-color);
+  color: var(--main-white-color);
+}
+
+.task-form__cancel-btn,
+.task-form__edit-cancel-btn {
+  border: 1px solid var(--dark-color);
+  background-color: var(--main-white-color);
+  color: var(--dark-color);
+}
+
+.task-form__add-btn:hover,
+.task-form__edit-btn:hover {
+  border: 1px solid var(--dark-color);
+  background-color: var(--main-white-color);
+  color: var(--dark-color);
+}
+
+.task-form__cancel-btn:hover {
+  border: 1px solid var(--main-white-color);
+  background-color: var(--dark-color);
+  color: var(--main-white-color);
+}
+
+.task-form__error {
+  position: absolute;
+  top: 3rem;
+  left: 5.5rem;
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.active {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  background-color: var(--main-white-color);
+  border-radius: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.display {
+  display: block;
 }
