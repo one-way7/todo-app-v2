@@ -130,6 +130,20 @@ const handlers = (() => {
         );
 
         tasks.toggleImportantStatus(projectIndex, taskIndex, link);
+      } else if (
+        e.target.classList.contains('new-task__done-icon') ||
+        e.target.parentNode.classList.contains('new-task__done-icon')
+      ) {
+        projectIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-project-index'),
+          10,
+        );
+        taskIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-task-index'),
+          10,
+        );
+
+        tasks.togglecompletedStatus(projectIndex, taskIndex, link);
       }
     });
   };
