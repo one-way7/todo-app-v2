@@ -89,7 +89,6 @@ a {
   font-size: var(--normal-font-size);
   font-weight: var(--light-grey);
 
-  transition: all 255ms ease-in-out;
   cursor: pointer;
 }
 
@@ -124,7 +123,6 @@ a {
   justify-content: space-between;
   align-items: center;
 
-  transition: all 255ms ease-in-out;
   cursor: pointer;
 }
 
@@ -269,7 +267,10 @@ a {
 
   font-size: var(--normal-font-size);
   border-bottom: 1px solid var(--dark-color);
+}
 
+.new-task:hover {
+  background-color: var(--light-grey);
 }
 
 .new-task__left {
