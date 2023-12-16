@@ -116,6 +116,20 @@ const handlers = (() => {
         dom.hideElement(dom.formTaskTitleError);
       } else if (e.target.classList.contains('task-form__edit-btn')) {
         validation.editTask(e, projectIndex, taskIndex, link);
+      } else if (
+        e.target.classList.contains('new-task__important-icon') ||
+        e.target.parentNode.classList.contains('new-task__important-icon')
+      ) {
+        projectIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-project-index'),
+          10,
+        );
+        taskIndex = parseInt(
+          e.target.closest('.new-task').getAttribute('data-task-index'),
+          10,
+        );
+
+        tasks.toggleImportantStatus(projectIndex, taskIndex, link);
       }
     });
   };
