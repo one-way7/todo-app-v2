@@ -229,7 +229,9 @@ const dom = (() => {
           taskItem.appendChild(taskLeftContentWrapper);
 
           const taskDoneIconWrapper = document.createElement('div');
+          const isCompleted = projects.projectsList[i].tasks[j].completed;
           taskDoneIconWrapper.classList.add('new-task__done-icon');
+          if (isCompleted) taskDoneIconWrapper.classList.add('done');
           taskLeftContentWrapper.appendChild(taskDoneIconWrapper);
 
           const taskDoneIcon = document.createElement('i');
@@ -238,6 +240,7 @@ const dom = (() => {
 
           const taskTitle = document.createElement('p');
           taskTitle.classList.add('new-task__name');
+          if (isCompleted) taskTitle.classList.add('done');
           taskTitle.textContent = projects.projectsList[i].tasks[j].title;
           taskLeftContentWrapper.appendChild(taskTitle);
 
@@ -273,10 +276,11 @@ const dom = (() => {
           taskRightContentWrapper.appendChild(taskImportantIconWrapper);
 
           const taskImportantIcon = document.createElement('i');
-          const importantIconClass = projects.projectsList[i].tasks[j].important
+          const taskImportantIconClass = projects.projectsList[i].tasks[j]
+            .important
             ? 'ri-star-fill'
             : 'ri-star-line';
-          taskImportantIcon.classList.add(importantIconClass);
+          taskImportantIcon.classList.add(taskImportantIconClass);
           taskImportantIconWrapper.appendChild(taskImportantIcon);
 
           const taskEditIconWrapper = document.createElement('div');

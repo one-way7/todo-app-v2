@@ -44,11 +44,23 @@ const tasks = (() => {
     dom.renderTasks(link);
   };
 
+  const togglecompletedStatus = (
+    projectIndex,
+    taskIndex,
+    link = projectIndex,
+  ) => {
+    projects.projectsList[projectIndex].tasks[taskIndex].completed =
+      !projects.projectsList[projectIndex].tasks[taskIndex].completed;
+
+    dom.renderTasks(link);
+  };
+
   return {
     createTask,
     removeTask,
     editTask,
     toggleImportantStatus,
+    togglecompletedStatus,
   };
 })();
 
