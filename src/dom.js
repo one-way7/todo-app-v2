@@ -168,7 +168,6 @@ const dom = (() => {
           ) {
             continue;
           } else if (projectIndex === i && taskIndex === j) {
-            console.log(1);
             const taskFormContainer = document.createElement('div');
             taskFormContainer.classList.add('edit-task-form__container');
             tasksList.appendChild(taskFormContainer);
@@ -295,7 +294,10 @@ const dom = (() => {
         }
       }
 
-      if (tasksList.querySelectorAll('.new-task').length === 0) {
+      if (
+        tasksList.querySelectorAll('.new-task').length === 0 &&
+        tasksList.querySelector('.edit-task-form__container') === null
+      ) {
         const noTaskLine = document.createElement('div');
         noTaskLine.classList.add('no-task__line');
         tasksList.appendChild(noTaskLine);
