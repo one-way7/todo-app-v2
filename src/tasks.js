@@ -33,10 +33,22 @@ const tasks = (() => {
     dom.renderTasks(link);
   };
 
+  const toggleImportantStatus = (
+    projectIndex,
+    taskIndex,
+    link = projectIndex,
+  ) => {
+    projects.projectsList[projectIndex].tasks[taskIndex].important =
+      !projects.projectsList[projectIndex].tasks[taskIndex].important;
+
+    dom.renderTasks(link);
+  };
+
   return {
     createTask,
     removeTask,
     editTask,
+    toggleImportantStatus,
   };
 })();
 
