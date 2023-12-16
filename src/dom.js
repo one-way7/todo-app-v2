@@ -126,7 +126,7 @@ const dom = (() => {
     const currDate = format(new Date(), 'yyyy-MM-dd');
 
     tasksList.textContent = '';
-    console.log(projectIndex, taskIndex);
+
     if (projects.projectsList.length >= 1) {
       if (typeof link === 'number') {
         indexStart = projectIndex;
@@ -293,6 +293,20 @@ const dom = (() => {
           taskDeleteIcon.classList.add('ri-close-line');
           taskDeleteIconWrapper.appendChild(taskDeleteIcon);
         }
+      }
+
+      if (tasksList.querySelectorAll('.new-task').length === 0) {
+        const noTaskLine = document.createElement('div');
+        noTaskLine.classList.add('no-task__line');
+        tasksList.appendChild(noTaskLine);
+
+        const noTaskIcon = document.createElement('i');
+        noTaskIcon.classList.add('ri-chat-smile-2-line');
+        noTaskLine.appendChild(noTaskIcon);
+
+        const noTaskText = document.createElement('p');
+        noTaskText.textContent = 'Yay! No Tasks!';
+        noTaskLine.appendChild(noTaskText);
       }
 
       // renderTasksForm(projectIndex);
