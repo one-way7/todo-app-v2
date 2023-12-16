@@ -19,11 +19,13 @@ const tasks = (() => {
     projects.projectsList[projectIndex].tasks.push(newTask);
 
     dom.renderTasks(projectIndex);
+    localStorage.setItem('projects', JSON.stringify(projects.projectsList));
   };
 
   const removeTask = (projectIndex, taskIndex, link = projectIndex) => {
     projects.projectsList[projectIndex].tasks.splice(taskIndex, 1);
     dom.renderTasks(link);
+    localStorage.setItem('projects', JSON.stringify(projects.projectsList));
   };
 
   const editTask = (
@@ -35,8 +37,8 @@ const tasks = (() => {
   ) => {
     projects.projectsList[projectIndex].tasks[taskIndex].title = title;
     projects.projectsList[projectIndex].tasks[taskIndex].date = date;
-
     dom.renderTasks(link);
+    localStorage.setItem('projects', JSON.stringify(projects.projectsList));
   };
 
   const toggleImportantStatus = (
@@ -46,8 +48,8 @@ const tasks = (() => {
   ) => {
     projects.projectsList[projectIndex].tasks[taskIndex].important =
       !projects.projectsList[projectIndex].tasks[taskIndex].important;
-
     dom.renderTasks(link);
+    localStorage.setItem('projects', JSON.stringify(projects.projectsList));
   };
 
   const togglecompletedStatus = (
@@ -57,8 +59,8 @@ const tasks = (() => {
   ) => {
     projects.projectsList[projectIndex].tasks[taskIndex].completed =
       !projects.projectsList[projectIndex].tasks[taskIndex].completed;
-
     dom.renderTasks(link);
+    localStorage.setItem('projects', JSON.stringify(projects.projectsList));
   };
 
   return {
