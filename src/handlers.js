@@ -16,6 +16,7 @@ const handlers = (() => {
       ) {
         dom.showProjectModal();
       } else if (e.target.classList.contains('project__form-cancel-btn')) {
+        dom.hideElement(dom.formProjectTitleError);
         dom.hideProjectModal();
       } else if (e.target.classList.contains('project__form-add-btn')) {
         validation.addProject(e, projectIndex, link);
@@ -32,6 +33,7 @@ const handlers = (() => {
       } else if (e.target.classList.contains('project__form-edit-btn')) {
         validation.editProject(e, projectIndex, link);
       } else if (e.target.classList.contains('project__form-edit-cancel-btn')) {
+        dom.hideElement(dom.formProjectTitleError);
         dom.hideEditProjectForm();
       } else if (
         e.target.classList.contains('project__delete-icon') ||
@@ -78,6 +80,7 @@ const handlers = (() => {
       } else if (e.target.closest('.new-task__btn')) {
         dom.showAddTaskForm(projectIndex);
       } else if (e.target.classList.contains('task-form__cancel-btn')) {
+        dom.hideElement(dom.formTaskTitleError);
         dom.hideAddTaskForm();
       } else if (e.target.classList.contains('task-form__add-btn')) {
         validation.addTask(e, projectIndex);
