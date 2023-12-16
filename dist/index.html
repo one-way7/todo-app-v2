@@ -72,17 +72,51 @@
       </div>
 
       <div class="project__container">
-
+        <div class="project__modal hide">
+          <form class="project__form" name="project__form">
+            <div class="project__form-content">
+              <div class="project__form-icon">
+                <i class="ri-terminal-line"></i>
+              </div>
+              <input type="text" name="title" class="project__form-input" placeholder="Enter Project Name">
+              <p class="project-form__error hide">This field can't be empty.</p>
+                <div class="formBtnsWrapper">
+                  <button class="project__form-add-btn" type="submit">Add</button>
+                  <button class="project__form-cancel-btn" type="button">Cancel</button>
+                </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <p class="project-form__error hide">This field can't be empty.</p>
-      <p class="task-form__error hide">This field can't be empty.</p>
-
     </div>
   </div>
 
   <main class="main">
     <h1 class="main__header"></h1>
-    <div class="tasks__container"></div>
+    <div class="tasks__container">
+
+      <div class="new-task__btn">
+        <div class="new-task__btn-content">
+          <div class="new-task__add-icon">
+            <i class="ri-add-line"></i>
+          </div>
+          <p class="new-task__text">Add new task</p>
+        </div>
+      </div>
+
+      <div class="task-form__container hide">
+        <form class="task-form" name="task__form">
+          <div class="task-form__content">
+            <i class="ri-list-check-3"></i>
+            <input type="text" class="task-form__title-input" name="title" placeholder="Enter Task Name">
+            <p class="task-form__error hide">This field can't be empty.</p>
+            <input type="date" class="task-form__date-input" name="date">
+            <button class="task-form__add-btn" type="submit">Add</button>
+            <button class="task-form__cancel-btn" type="button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
 </body>
