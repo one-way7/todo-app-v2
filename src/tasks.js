@@ -26,7 +26,13 @@ const tasks = (() => {
     dom.renderTasks(link);
   };
 
-  const editTask = (title, date, projectIndex, taskIndex, link) => {
+  const editTask = (
+    title,
+    date,
+    projectIndex,
+    taskIndex,
+    link = projectIndex,
+  ) => {
     projects.projectsList[projectIndex].tasks[taskIndex].title = title;
     projects.projectsList[projectIndex].tasks[taskIndex].date = date;
 
